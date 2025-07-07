@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contests - CodeJudge</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-code"></i> CodeJudge
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="problems.html">Problems</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="contests.html">Contests</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="leaderboard.html">Leaderboard</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showLogin()">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showRegister()">Register</a>
+                    </li>
+                    <li class="nav-item d-none" id="user-menu">
+                        <div class="dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-user"></i> <span id="username"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="profile.html">Profile</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="logout()">Logout</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contests Section -->
+    <section class="py-5">
+        <div class="container">
+            <h1 class="text-center mb-5">Contests</h1>
+            
+            <!-- Contest Filters -->
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <select class="form-select" id="statusFilter">
+                        <option value="">All Contests</option>
+                        <option value="upcoming">Upcoming</option>
+                        <option value="running">Running</option>
+                        <option value="finished">Finished</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="searchFilter" placeholder="Search contests...">
+                </div>
+            </div>
+
+            <!-- Contests List -->
+            <div class="row" id="contests-container">
+                <!-- Contests will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label for="loginUsername" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="loginUsername" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="loginPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Register</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="registerForm">
+                        <div class="mb-3">
+                            <label for="registerUsername" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="registerUsername" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="registerEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="registerPassword" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirmPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container text-center">
+            <p>&copy; 2024 CodeJudge. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        let filteredContests = [];
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadContests();
+            setupFilters();
+        });
+
+        function loadContests() {
+            const contests = codeJudge.getContests();
+            
+            // Add more sample contests if needed
+            const sampleContests = [
+                {
+                    id: 3,
+                    title: "CodeJudge Round #1",
+                    description: "First official contest on CodeJudge platform",
+                    startTime: new Date(Date.now() + 7 * 86400000).toISOString(), // Next week
+                    endTime: new Date(Date.now() + 7 * 86400000 + 7200000).toISOString(), // Next week + 2 hours
+                    problems: [1, 2, 3, 4],
+                    participants: 0,
+                    status: "upcoming"
+                },
+                {
+                    id: 4,
+                    title: "Sprint Challenge",
+                    description: "Quick 90-minute programming sprint",
+                    startTime: new Date(Date.now() + 3 * 86400000).toISOString(), // 3 days from now
+                    endTime: new Date(Date.now() + 3 * 86400000 + 5400000).toISOString(), // 3 days from now + 1.5 hours
+                    problems: [1, 3, 5],
+                    participants: 23,
+                    status: "upcoming"
+                },
+                {
+                    id: 5,
+                    title: "Dynamic Programming Mastery",
+                    description: "Advanced DP problems for experienced coders",
+                    startTime: new Date(Date.now() - 2 * 86400000).toISOString(), // 2 days ago
+                    endTime: new Date(Date.now() - 2 * 86400000 + 10800000).toISOString(), // 2 days ago + 3 hours
+                    problems: [4, 5],
+                    participants: 67,
+                    status: "finished"
+                }
+            ];
+            
+            filteredContests = [...contests, ...sampleContests];
+            updateContestStatuses();
+            displayContests();
+        }
+
+        function updateContestStatuses() {
+            const now = new Date();
+            
+            filteredContests.forEach(contest => {
+                const startTime = new Date(contest.startTime);
+                const endTime = new Date(contest.endTime);
+                
+                if (now < startTime) {
+                    contest.status = 'upcoming';
+                } else if (now >= startTime && now <= endTime) {
+                    contest.status = 'running';
+                } else {
+                    contest.status = 'finished';
+                }
+            });
+        }
+
+        function displayContests() {
+            const container = document.getElementById('contests-container');
+            container.innerHTML = '';
+            
+            if (filteredContests.length === 0) {
+                container.innerHTML = `
+                    <div class="col-12">
+                        <div class="text-center py-5">
+                            <h4 class="text-muted">No contests found</h4>
+                            <p class="text-muted">Try adjusting your filters or check back later for new contests.</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+            
+            filteredContests.forEach(contest => {
+                const contestCard = createContestCard(contest);
+                container.appendChild(contestCard);
+            });
+        }
+
+        function createContestCard(contest) {
+            const col = document.createElement('div');
+            col.className = 'col-md-6 col-lg-4 mb-4';
+            
+            const statusBadge = getStatusBadge(contest.status);
+            const actionButton = getActionButton(contest);
+            const timeInfo = getTimeInfo(contest);
+            
+            col.innerHTML = `
+                <div class="contest-card">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <h5 class="mb-0">${contest.title}</h5>
+                        <span class="contest-status ${statusBadge.class}">${statusBadge.text}</span>
+                    </div>
+                    
+                    <p class="text-muted mb-3">${contest.description}</p>
+                    
+                    <div class="contest-info mb-3">
+                        <div class="row">
+                            <div class="col-6">
+                                <small class="text-muted">Duration</small>
+                                <div class="fw-bold">${getDuration(contest)}</div>
+                            </div>
+                            <div class="col-6">
+                                <small class="text-muted">Participants</small>
+                                <div class="fw-bold">${contest.participants}</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contest-time mb-3">
+                        <small class="text-muted">${timeInfo.label}</small>
+                        <div class="fw-bold">${timeInfo.value}</div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">${contest.problems.length} problems</small>
+                        ${actionButton}
+                    </div>
+                </div>
+            `;
+            
+            return col;
+        }
+
+        function getStatusBadge(status) {
+            switch(status) {
+                case 'upcoming':
+                    return { class: 'status-upcoming', text: 'Upcoming' };
+                case 'running':
+                    return { class: 'status-running', text: 'Running' };
+                case 'finished':
+                    return { class: 'status-finished', text: 'Finished' };
+                default:
+                    return { class: 'status-upcoming', text: 'Unknown' };
+            }
+        }
+
+        function getActionButton(contest) {
+            switch(contest.status) {
+                case 'upcoming':
+                    return `<button class="btn btn-outline-primary btn-sm" onclick="registerForContest(${contest.id})">Register</button>`;
+                case 'running':
+                    return `<button class="btn btn-success btn-sm" onclick="enterContest(${contest.id})">Enter</button>`;
+                case 'finished':
+                    return `<button class="btn btn-secondary btn-sm" onclick="viewStandings(${contest.id})">Standings</button>`;
+                default:
+                    return '';
+            }
+        }
+
+        function getTimeInfo(contest) {
+            const now = new Date();
+            const startTime = new Date(contest.startTime);
+            const endTime = new Date(contest.endTime);
+            
+            if (contest.status === 'upcoming') {
+                return {
+                    label: 'Starts',
+                    value: startTime.toLocaleString()
+                };
+            } else if (contest.status === 'running') {
+                return {
+                    label: 'Ends',
+                    value: endTime.toLocaleString()
+                };
+            } else {
+                return {
+                    label: 'Ended',
+                    value: endTime.toLocaleString()
+                };
+            }
+        }
+
+        function getDuration(contest) {
+            const start = new Date(contest.startTime);
+            const end = new Date(contest.endTime);
+            const durationMs = end - start;
+            const hours = Math.floor(durationMs / (1000 * 60 * 60));
+            const minutes = Math.floor((durationMs % (1000 * 60 * 60)) / (1000 * 60));
+            
+            if (hours > 0) {
+                return `${hours}h ${minutes}m`;
+            } else {
+                return `${minutes}m`;
+            }
+        }
+
+        function setupFilters() {
+            const statusFilter = document.getElementById('statusFilter');
+            const searchFilter = document.getElementById('searchFilter');
+            
+            statusFilter.addEventListener('change', applyFilters);
+            searchFilter.addEventListener('input', applyFilters);
+        }
+
+        function applyFilters() {
+            const statusFilter = document.getElementById('statusFilter').value;
+            const searchFilter = document.getElementById('searchFilter').value.toLowerCase();
+            
+            const allContests = [...codeJudge.getContests(), 
+                {
+                    id: 3,
+                    title: "CodeJudge Round #1",
+                    description: "First official contest on CodeJudge platform",
+                    startTime: new Date(Date.now() + 7 * 86400000).toISOString(),
+                    endTime: new Date(Date.now() + 7 * 86400000 + 7200000).toISOString(),
+                    problems: [1, 2, 3, 4],
+                    participants: 0,
+                    status: "upcoming"
+                },
+                {
+                    id: 4,
+                    title: "Sprint Challenge",
+                    description: "Quick 90-minute programming sprint",
+                    startTime: new Date(Date.now() + 3 * 86400000).toISOString(),
+                    endTime: new Date(Date.now() + 3 * 86400000 + 5400000).toISOString(),
+                    problems: [1, 3, 5],
+                    participants: 23,
+                    status: "upcoming"
+                },
+                {
+                    id: 5,
+                    title: "Dynamic Programming Mastery",
+                    description: "Advanced DP problems for experienced coders",
+                    startTime: new Date(Date.now() - 2 * 86400000).toISOString(),
+                    endTime: new Date(Date.now() - 2 * 86400000 + 10800000).toISOString(),
+                    problems: [4, 5],
+                    participants: 67,
+                    status: "finished"
+                }
+            ];
+            
+            filteredContests = allContests.filter(contest => {
+                const matchesStatus = !statusFilter || contest.status === statusFilter;
+                const matchesSearch = !searchFilter || 
+                    contest.title.toLowerCase().includes(searchFilter) ||
+                    contest.description.toLowerCase().includes(searchFilter);
+                
+                return matchesStatus && matchesSearch;
+            });
+            
+            updateContestStatuses();
+            displayContests();
+        }
+
+        function registerForContest(contestId) {
+            if (!auth.isLoggedIn()) {
+                alert('Please login to register for contests!');
+                showLogin();
+                return;
+            }
+            
+            showAlert('Successfully registered for the contest!', 'success');
+        }
+
+        function enterContest(contestId) {
+            if (!auth.isLoggedIn()) {
+                alert('Please login to enter contests!');
+                showLogin();
+                return;
+            }
+            
+            alert('Contest functionality will be implemented soon!');
+        }
+
+        function viewStandings(contestId) {
+            alert('Contest standings will be implemented soon!');
+        }
+    </script>
+</body>
+</html>
