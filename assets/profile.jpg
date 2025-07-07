@@ -1,0 +1,11 @@
+# Profile Image Placeholder
+
+This file serves as a placeholder for the profile image. 
+
+To use your own profile image:
+1. Replace this file with your actual profile image
+2. Name it `profile.jpg` or update the src attribute in `index.html`
+3. Recommended size: 400x400 pixels
+4. Supported formats: JPG, PNG, WebP
+
+For now, the CSS will handle the missing image gracefully with a fallback background.
