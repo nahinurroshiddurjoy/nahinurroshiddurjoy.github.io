@@ -1,0 +1,101 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.container-fluid {
+    max-width: 100%;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+h1 {
+    color: #343a40;
+    font-weight: 300;
+}
+
+label {
+    font-weight: 500;
+    color: #495057;
+}
+
+#codeInput, #stdInput, #outputArea {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9rem;
+    border-radius: 0.25rem;
+    border: 1px solid #ced4da;
+}
+
+#codeInput {
+    background-color: #fff;
+    color: #495057;
+}
+
+#stdInput {
+    background-color: #fff;
+    color: #495057;
+}
+
+#outputArea {
+    background-color: #e9ecef;
+    color: #212529;
+    white-space: pre-wrap; /* Ensures output wraps and respects newlines */
+    word-break: break-all; /* Breaks long words to prevent overflow */
+}
+
+#runButton {
+    background-color: #007bff;
+    border-color: #007bff;
+    font-weight: 500;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+#runButton:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+#languageSelect {
+    cursor: pointer;
+}
+
+#previewArea {
+    background-color: #ffffff;
+    height: calc(100vh - 450px); /* Adjust height dynamically */
+    min-height: 250px; /* Ensure a minimum height */
+}
+
+/* Styling for the editor and output areas to make them feel more like an IDE */
+.form-group textarea, .form-group pre {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Ensure responsiveness */
+@media (max-width: 768px) {
+    .row > div {
+        margin-bottom: 1rem;
+    }
+    #previewArea {
+        height: 300px; /* Fixed height for smaller screens */
+    }
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
